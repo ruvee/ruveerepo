@@ -1,0 +1,30 @@
+/* 
+    Document   : table-style
+    Created on : 03.11.2012, 18:58:38
+    Author     : dell
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+table{   
+	border-collapse:collapse;
+}
+ 
+th{
+	text-align:center;
+	background:none repeat scroll 0 0 #E5E5E5;
+	border-bottom:1px solid #BBBBBB;
+	padding:16px;
+}
+ 
+tr{
+	text-align:center;
+	background:none repeat scroll 0 0 #FFFFFFF;
+	border-top:1px solid #BBBBBB;
+}
+ 
+td{
+	text-align:center;
+	background:none repeat scroll 0 0 #F9F9F9;
+	border-top:1px solid #BBBBBB;
+}

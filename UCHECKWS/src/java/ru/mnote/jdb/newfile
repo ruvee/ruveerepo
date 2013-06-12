@@ -1,0 +1,166 @@
+
+import java.sql.*;
+import java.util.Properties;
+import javax.naming.Context;
+import javax.naming.NamingException;
+import javax.naming.directory.DirContext;
+import javax.naming.directory.InitialDirContext;
+
+/*
+ * To change this template, choose Tools | Templates and open the template in
+ * the editor.
+ */
+
+package ru.mnote.jdb;
+
+/**
+ *
+ * @author dell
+ */
+public class NewClass {
+    
+    public NewClass() {
+       userName = null;
+       password = null;
+       serverName = null;    
+       portNumber = null;    
+       dbms = null;    
+       dbName = null;        
+    }
+    private String status;
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public String getDbms() {
+        return dbms;
+    }
+
+    public void setDbms(String dbms) {
+        this.dbms = dbms;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPortNumber() {
+        return portNumber;
+    }
+
+    public void setPortNumber(String portNumber) {
+        this.portNumber = portNumber;
+    }
+
+    public String getServerName() {
+        return serverName;
+    }
+
+    public void setServerName(String serverName) {
+        this.serverName = serverName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    private String userName = "root";
+    private String password = "111111";
+    private String serverName = "localhost";    
+    private String portNumber = "3306";    
+    private String dbms = "mysql";    
+    private String dbName = "sch_hs";        
+    
+    
+    
+    public static void viewTable(Connection con, String dbName)
+    throws SQLException {
+
+    Statement stmt = null;
+    String query = "select * from messages";
+    try {
+        stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {
+            String coffeeName = rs.getString("COF_NAME");
+            int supplierID = rs.getInt("SUP_ID");
+            float price = rs.getFloat("PRICE");
+            int sales = rs.getInt("SALES");
+            int total = rs.getInt("TOTAL");
+            System.out.println(coffeeName + "\t" + supplierID +
+                               "\t" + price + "\t" + sales +
+                               "\t" + total);
+        }
+    } catch (SQLException e ) {
+        //JDBCTutorialUtilities.printSQLException(e);
+    } finally {
+        if (stmt != null) { stmt.close(); }
+    }
+}
+    
+    public Connection getConnection() throws SQLException {
+
+    Connection conn = null;
+    Properties connectionProps = new Properties();
+    connectionProps.put("user", this.userName);
+    connectionProps.put("password", this.password);
+
+    if (this.dbms.equals("mysql")) {
+        conn = DriverManager.getConnection(
+                   "jdbc:" + this.dbms + "://" +
+                   this.serverName +
+                   ":" + this.portNumber + "/",
+                   connectionProps);
+    } else if (this.dbms.equals("derby")) {
+        conn = DriverManager.getConnection(
+                   "jdbc:" + this.dbms + ":" +
+                   this.dbName +
+                   ";create=true",
+                   connectionProps);
+    }
+    System.out.println("Connected to database");
+    return conn;
+}
+    
+}
+
+
+
+
+POST /as/response.jsp HTTP/1.1
+Host: localhost:8084
+Connection: keep-alive
+Content-Length: 76
+Cache-Control: max-age=0
+Origin: http://localhost:8080
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1229.94 Safari/537.4
+Content-Type: application/x-www-form-urlencoded
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Referer: http://localhost:8080/as/
+Accept-Encoding: gzip,deflate,sdch
+Accept-Language: en-US,en;q=0.8
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3
+Cookie: JSESSIONID=0CE928B2AD69EDDFCB3113DB7C6985B8
+
+name=ruslan&password=ruslan&message=U29tZSB0ZXh0IHNob3VsZCBiZSB0aGVyZQ%3D%3D
+
